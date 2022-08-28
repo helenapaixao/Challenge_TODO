@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Image, TouchableOpacity, View, Text, StyleSheet, FlatListProps } from 'react-native';
+import { FlatList, Image, TouchableOpacity, View, Text, StyleSheet, FlatListProps, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
 import { ItemWrapper } from './ItemWrapper';
@@ -19,9 +19,10 @@ interface TasksListProps {
 }
 
 export function TasksList({ tasks, toggleTaskDone, removeTask }: TasksListProps) {
+  const OnPress = () => removeTask
   return (
     <FlatList
-      // data={tasks}
+      data={tasks}
       keyExtractor={item => String(item.id)}
       contentContainerStyle={{ paddingBottom: 24 }}
       showsVerticalScrollIndicator={false}
@@ -33,6 +34,8 @@ export function TasksList({ tasks, toggleTaskDone, removeTask }: TasksListProps)
                 testID={`button-${index}`}
                 activeOpacity={0.7}
                 style={styles.taskButton}
+                
+                
                 //TODO - use onPress (toggle task) prop
               >
                 <View 
@@ -59,6 +62,8 @@ export function TasksList({ tasks, toggleTaskDone, removeTask }: TasksListProps)
             <TouchableOpacity
               testID={`trash-${index}`}
               style={{ paddingHorizontal: 24 }}
+              onPress={OnPress}
+              /* onPress={removeTask} */
               //TODO - use onPress (remove task) prop
             >
               <Image source={trashIcon} />
